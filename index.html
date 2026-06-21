@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ashraf Hossen | Portfolio</title>
+    <style>
+        /* --- CORE DESIGN SYSTEM --- */
+        :root {
+            --primary: #00ff41; /* Default Matrix Green */
+            --bg: #050505;
+            --surface: rgba(20, 20, 20, 0.7);
+            --text: #ffffff;
+            --text-dim: #b0b0b0;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass: blur(20px) saturate(180%);
+            --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            --font-mono: "SF Mono", "Fira Code", monospace;
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        [data-theme="light"] {
+            --bg: #f5f5f7;
+            --surface: rgba(255, 255, 255, 0.7);
+            --text: #1d1d1f;
+            --text-dim: #86868b;
+            --border: rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- UI RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
+        html::-webkit-scrollbar { display: none; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: background 0.8s var(--ease);
+        }
+
+        /* --- PREVIOUS HACKER PRELOADER --- */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10%;
+            font-family: var(--font-mono);
+            color: var(--primary);
+        }
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 4px solid var(--primary);
+            width: 0;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            animation: typing 1.5s steps(40, end) forwards, blink .75s step-end infinite;
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--primary); } }
+
+        /* --- MACOS DOCK NAVIGATION --- */
+        nav {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+            background: var(--surface);
+            backdrop-filter: var(--glass);
+            -webkit-backdrop-filter: var(--glass);
+            padding: 10px 25px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .nav-item {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+        .nav-item:hover { opacity: 1; transform: translateY(-5px); color: var(--primary); }
+
+        /* --- STATUS BAR (TOP RIGHT) --- */
+        .status-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .btn-ctrl {
+            width: 44px; height: 44px;
+            background: var(--surface);
+            backdrop-filter: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 18px;
+        }
+        .btn-ctrl:hover { transform: scale(1.1); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
+
+        .theme-panel {
+            position: absolute;
+            top: 55px; right: 0;
+            background: var(--surface);
+            padding: 12px;
+            border-radius: 15px;
+            display: none;
+            gap: 10px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .color-dot { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
+        }
+        .profile-wrapper { position: relative; width: 180px; margin-bottom: 40px; }
+        .profile-img {
+            width: 180px; height: 180px;
+            border-radius: 40px;
+            object-fit: cover;
+            border: 4px solid var(--surface);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+        .arabic-greet {
+            position: absolute;
+            top: -15px; right: -85px;
+            background: var(--primary);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 20px 20px 20px 0;
+            font-weight: 800;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: 0.6s var(--ease) 2.5s;
+        }
+
+        h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; }
+        .subtitle { color: var(--text-dim); font-size: 1.4rem; font-weight: 300; letter-spacing: 5px; text-transform: uppercase; }
+
+        /* --- AUTO SLIDER --- */
+        .gallery-container {
+            max-width: 1000px;
+            margin: 0 auto 150px;
+            height: 550px;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+        }
+        .slider-track { display: flex; height: 100%; transition: transform 1.2s cubic-bezier(0.45, 0, 0.05, 1); }
+        .slide { min-width: 100%; height: 100%; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- TERMINAL WINDOW --- */
+        .terminal {
+            max-width: 800px;
+            margin: 80px auto;
+            background: #000;
+            border-radius: 14px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+            overflow: hidden;
+            font-family: var(--font-mono);
+        }
+        .term-header {
+            background: var(--primary);
+            padding: 10px 20px;
+            display: flex;
+            gap: 8px;
+            color: #000;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .term-body { padding: 35px; font-size: 16px; line-height: 1.8; color: #fff; }
+        .key { color: var(--primary); }
+
+        /* --- CONTACT CARDS --- */
+        .contact-section {
+            max-width: 1000px;
+            margin: 100px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 0 20px;
+        }
+        .contact-card {
+            background: var(--surface);
+            backdrop-filter: var(--glass);
+            padding: 35px;
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text);
+            transition: 0.4s var(--ease);
+            text-align: center;
+        }
+        .contact-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 255, 65, 0.2); }
+
+        /* --- REVEAL --- */
+        [data-reveal] { opacity: 0; transform: translateY(50px); transition: 1.2s var(--ease); }
+        .revealed { opacity: 1; transform: translateY(0); }
+
+        footer { text-align: center; padding: 100px 0 150px; opacity: 0.4; font-size: 12px; font-family: var(--font-mono); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .gallery-container { height: 350px; }
+            .dock-container { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PREVIOUS HACKER PRELOADER -->
+    <div id="preloader">
+        <div class="typewriter">> SYSTEM.BOOT_SEQUENCE_...</div>
+        <div class="typewriter" style="animation-delay: 1.5s;">> ACCESSING_ENCRYPTED_FILES...</div>
+        <div class="typewriter" style="animation-delay: 3s;">> MOUNTING_ASHRAF_PORTFOLIO...</div>
+        <div class="typewriter" style="animation-delay: 4.5s;">> PERMISSION_GRANTED.</div>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <div class="btn-ctrl" onclick="toggleAudio()" title="Quran Player">🎵</div>
+        <div class="btn-ctrl" onclick="toggleTheme()" title="Appearance">🌓</div>
+        <div class="btn-ctrl" onclick="togglePicker()" title="Accent Color">🎨
+            <div class="theme-panel" id="picker">
+                <div class="color-dot" style="background: #00ff41;" onclick="setAccent('#00ff41')"></div>
+                <div class="color-dot" style="background: #007aff;" onclick="setAccent('#007aff')"></div>
+                <div class="color-dot" style="background: #ff007a;" onclick="setAccent('#ff007a')"></div>
+                <div class="color-dot" style="background: #ffea00;" onclick="setAccent('#ffea00')"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DOCK NAV -->
+    <nav>
+        <a href="#home" class="nav-item">Home</a>
+        <a href="#gallery" class="nav-item">Visuals</a>
+        <a href="#about" class="nav-item">Core</a>
+        <a href="#contact" class="nav-item">Uplink</a>
+    </nav>
+
+    <main id="home">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="profile-wrapper">
+                <img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/main/IMG_20260209_205036_522.jpg" alt="Profile" class="profile-img">
+                <div class="arabic-greet" id="greet">السلام عليكم</div>
+            </div>
+            <h1 data-reveal>Ashraf Hossen</h1>
+            <p class="subtitle" data-reveal>Senior Developer & UI Architect</p>
+        </section>
+
+        <!-- GALLERY -->
+        <section id="gallery" class="gallery-container" data-reveal>
+            <div class="slider-track" id="slider">
+                <div class="slide"><img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/refs/heads/main/FB_IMG_1770646304688.jpg" alt="1"></div>
+                <div class="slide"><img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/main/IMG-20260209-WA0005.jpg" alt="2"></div>
+                <div class="slide"><img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/main/IMG_20260209_205036_522.jpg" alt="3"></div>
+                <div class="slide"><img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/main/FB_IMG_1770799211354.jpg" alt="4"></div>
+            </div>
+        </section>
+
+        <!-- ABOUT (TERMINAL) -->
+        <section id="about" style="padding: 0 20px;">
+            <div class="terminal" data-reveal>
+                <div class="term-header">
+                    <span>ASHRAF@SYSTEM: ~ (zsh)</span>
+                </div>
+                <div class="term-body" id="json-about"></div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="contact-section" data-reveal></section>
+    </main>
+
+    <audio id="quran" src="https://github.com/jubairbro/Faw/raw/refs/heads/main/audio.mp3"></audio>
+
+    <footer>
+        <p>// ASHRAF_HOSSEN_JUBAYED // VERSION_2025.01 //</p>
+        <p>ENCRYPTED & DESIGNED FOR EXCELLENCE</p>
+    </footer>
+
+    <script>
+        /* --- 1. PRELOADER SEQUENCE --- */
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('preloader').style.display = 'none';
+                    document.getElementById('greet').style.opacity = '1';
+                    document.getElementById('greet').style.transform = 'scale(1)';
+                }, 800);
+            }, 6000); // Wait for hacker typing to finish
+        });
+
+        /* --- 2. CONTROLS --- */
+        function toggleTheme() {
+            const b = document.body;
+            b.setAttribute('data-theme', b.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        }
+
+        function togglePicker() {
+            const p = document.getElementById('picker');
+            p.style.display = p.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function setAccent(color) {
+            document.documentElement.style.setProperty('--primary', color);
+            togglePicker();
+        }
+
+        function toggleAudio() {
+            const a = document.getElementById('quran');
+            a.paused ? a.play() : a.pause();
+        }
+
+        /* --- 3. AUTO SLIDER --- */
+        let idx = 0;
+        setInterval(() => {
+            idx = (idx + 1) % 4;
+            document.getElementById('slider').style.transform = `translateX(-${idx * 100}%)`;
+        }, 2000);
+
+        /* --- 4. DATA RENDER --- */
+        const me = {
+            id: "Ashraf Hossen Jubayed",
+            role: "Leader of Noobs",
+            status: "404: Potential Not Found",
+            stack: ["JavaScript", "UI Design", "System Architecture"],
+            vision: "Clean code. Dynamic aesthetics."
+        };
+
+        const contacts = [
+            { id: "Facebook", val: "Ashrafhossenjubayed72", url: "https://facebook.com/Ashrafhossenjubayed72" },
+            { id: "Telegram", val: "@Ashrafhossenjubayed71", url: "https://t.me/Ashrafhossenjubayed71" },
+            { id: "Email", val: "jubayed45jh@gmail.com", url: "mailto:jubayed45jh@gmail.com" }
+        ];
+
+        document.getElementById('json-about').innerHTML = `
+            <span class="key">const</span> <span style="color:#61afef">ashraf</span> = {<br>
+            &nbsp;&nbsp;fullName: <span style="color:#98c379">"${me.id}"</span>,<br>
+            &nbsp;&nbsp;rank: <span style="color:#98c379">"${me.role}"</span>,<br>
+            &nbsp;&nbsp;status: <span style="color:#98c379">"${me.status}"</span>,<br>
+            &nbsp;&nbsp;skills: [<span style="color:#98c379">"${me.stack.join('", "')}"</span>],<br>
+            &nbsp;&nbsp;motto: <span style="color:#98c379">"${me.vision}"</span><br>
+            };
+        `;
+
+        const contactGrid = document.getElementById('contact');
+        contacts.forEach(c => {
+            contactGrid.innerHTML += `
+                <a href="${c.url}" class="contact-card" target="_blank">
+                    <div style="font-size:11px; opacity:0.5; margin-bottom:10px; font-family:var(--font-mono)">UPLINK_${c.id.toUpperCase()}</div>
+                    <div style="font-weight:700; font-size:1.3rem;">${c.val}</div>
+                </a>
+            `;
+        });
+
+        /* --- 5. REVEAL ENGINE --- */
+        const obs = new IntersectionObserver((es) => {
+            es.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+    </script>
+</body>
+</html>
