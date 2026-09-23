@@ -1,397 +1,179 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashraf Hossen | Portfolio</title>
+    <title>Ashraf Hosen Jubaed / Portfolio Preview</title>
+    <meta name="description" content="Portfolio preview for Ashraf Hosen Jubaed, developer and interface builder from Bangladesh.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- CORE DESIGN SYSTEM --- */
         :root {
-            --primary: #00ff41; /* Default Matrix Green */
-            --bg: #050505;
-            --surface: rgba(20, 20, 20, 0.7);
-            --text: #ffffff;
-            --text-dim: #b0b0b0;
-            --border: rgba(255, 255, 255, 0.1);
-            --glass: blur(20px) saturate(180%);
-            --font-main: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-            --font-mono: "SF Mono", "Fira Code", monospace;
-            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+            --paper: #f2f0e9;
+            --ink: #17191c;
+            --muted: #6c6d6e;
+            --line: #d5d2ca;
+            --blue: #3155d9;
+            --blue-dark: #253da1;
+            --acid: #d5f56d;
+            --white: #fffef9;
+            --serif: Georgia, 'Times New Roman', serif;
+            --sans: 'Manrope', sans-serif;
+            --display: 'Space Grotesk', sans-serif;
+            --mono: 'DM Mono', monospace;
         }
 
-        [data-theme="light"] {
-            --bg: #f5f5f7;
-            --surface: rgba(255, 255, 255, 0.7);
-            --text: #1d1d1f;
-            --text-dim: #86868b;
-            --border: rgba(0, 0, 0, 0.05);
-        }
-
-        /* --- UI RESET --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scrollbar-width: none; -ms-overflow-style: none; scroll-behavior: smooth; }
-        html::-webkit-scrollbar { display: none; }
-
-        body {
-            font-family: var(--font-main);
-            background-color: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            transition: background 0.8s var(--ease);
-        }
-
-        /* --- PREVIOUS HACKER PRELOADER --- */
-        #preloader {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 10%;
-            font-family: var(--font-mono);
-            color: var(--primary);
-        }
-        .typewriter {
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 4px solid var(--primary);
-            width: 0;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-            animation: typing 1.5s steps(40, end) forwards, blink .75s step-end infinite;
-        }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--primary); } }
-
-        /* --- MACOS DOCK NAVIGATION --- */
-        nav {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 999;
-            background: var(--surface);
-            backdrop-filter: var(--glass);
-            -webkit-backdrop-filter: var(--glass);
-            padding: 10px 25px;
-            border-radius: 24px;
-            border: 1px solid var(--border);
-            display: flex;
-            gap: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        }
-        .nav-item {
-            text-decoration: none;
-            color: var(--text);
-            font-size: 13px;
-            font-weight: 600;
-            transition: 0.3s;
-            opacity: 0.7;
-        }
-        .nav-item:hover { opacity: 1; transform: translateY(-5px); color: var(--primary); }
-
-        /* --- STATUS BAR (TOP RIGHT) --- */
-        .status-bar {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-        }
-        .btn-ctrl {
-            width: 44px; height: 44px;
-            background: var(--surface);
-            backdrop-filter: var(--glass);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 18px;
-        }
-        .btn-ctrl:hover { transform: scale(1.1); border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
-
-        .theme-panel {
-            position: absolute;
-            top: 55px; right: 0;
-            background: var(--surface);
-            padding: 12px;
-            border-radius: 15px;
-            display: none;
-            gap: 10px;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .color-dot { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; }
-
-        /* --- HERO --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 255, 65, 0.05) 0%, transparent 70%);
-        }
-        .profile-wrapper { position: relative; width: 180px; margin-bottom: 40px; }
-        .profile-img {
-            width: 180px; height: 180px;
-            border-radius: 40px;
-            object-fit: cover;
-            border: 4px solid var(--surface);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-        }
-        .arabic-greet {
-            position: absolute;
-            top: -15px; right: -85px;
-            background: var(--primary);
-            color: #000;
-            padding: 10px 20px;
-            border-radius: 20px 20px 20px 0;
-            font-weight: 800;
-            font-size: 1.2rem;
-            opacity: 0;
-            transform: scale(0.5);
-            transition: 0.6s var(--ease) 2.5s;
-        }
-
-        h1 { font-size: 4rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; }
-        .subtitle { color: var(--text-dim); font-size: 1.4rem; font-weight: 300; letter-spacing: 5px; text-transform: uppercase; }
-
-        /* --- AUTO SLIDER --- */
-        .gallery-container {
-            max-width: 1000px;
-            margin: 0 auto 150px;
-            height: 550px;
-            border-radius: 30px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            position: relative;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-        }
-        .slider-track { display: flex; height: 100%; transition: transform 1.2s cubic-bezier(0.45, 0, 0.05, 1); }
-        .slide { min-width: 100%; height: 100%; }
-        .slide img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* --- TERMINAL WINDOW --- */
-        .terminal {
-            max-width: 800px;
-            margin: 80px auto;
-            background: #000;
-            border-radius: 14px;
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
-            overflow: hidden;
-            font-family: var(--font-mono);
-        }
-        .term-header {
-            background: var(--primary);
-            padding: 10px 20px;
-            display: flex;
-            gap: 8px;
-            color: #000;
-            font-weight: bold;
-            font-size: 12px;
-        }
-        .term-body { padding: 35px; font-size: 16px; line-height: 1.8; color: #fff; }
-        .key { color: var(--primary); }
-
-        /* --- CONTACT CARDS --- */
-        .contact-section {
-            max-width: 1000px;
-            margin: 100px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 0 20px;
-        }
-        .contact-card {
-            background: var(--surface);
-            backdrop-filter: var(--glass);
-            padding: 35px;
-            border-radius: 28px;
-            border: 1px solid var(--border);
-            text-decoration: none;
-            color: var(--text);
-            transition: 0.4s var(--ease);
-            text-align: center;
-        }
-        .contact-card:hover { transform: translateY(-10px); border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 255, 65, 0.2); }
-
-        /* --- REVEAL --- */
-        [data-reveal] { opacity: 0; transform: translateY(50px); transition: 1.2s var(--ease); }
-        .revealed { opacity: 1; transform: translateY(0); }
-
-        footer { text-align: center; padding: 100px 0 150px; opacity: 0.4; font-size: 12px; font-family: var(--font-mono); }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .gallery-container { height: 350px; }
-            .dock-container { width: 90%; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); }
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+        .wrap { width: min(1180px, calc(100% - 48px)); margin: auto; }
+        .eyebrow { color: var(--blue); font: 500 11px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid var(--line); }
+        .mark { display: flex; align-items: center; gap: 10px; font: 700 18px var(--display); letter-spacing: -.04em; }
+        .mark-dot { width: 10px; height: 10px; background: var(--blue); border-radius: 50%; }
+        .nav { display: flex; gap: 28px; font-size: 13px; color: var(--muted); }
+        .nav a:hover { color: var(--blue); }
+        .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 70px; min-height: 650px; align-items: center; padding: 80px 0 100px; }
+        h1 { max-width: 760px; margin: 20px 0 26px; font: 600 clamp(4rem, 9vw, 8.5rem)/.86 var(--display); letter-spacing: -.09em; }
+        .hero-copy { max-width: 590px; color: var(--muted); font-size: 18px; line-height: 1.7; }
+        .hero-copy strong { color: var(--ink); font-weight: 700; }
+        .hero-links { display: flex; align-items: center; gap: 18px; margin-top: 38px; }
+        .button { display: inline-flex; align-items: center; gap: 12px; padding: 14px 18px; color: var(--white); background: var(--blue); font-size: 13px; font-weight: 700; transition: transform .2s, background .2s; }
+        .button:hover { background: var(--blue-dark); transform: translateY(-3px); }
+        .text-link { color: var(--blue); font-size: 13px; font-weight: 700; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+        .portrait-card { position: relative; max-width: 390px; justify-self: end; }
+        .portrait-card::before { content: 'OPEN TO IDEAS'; position: absolute; top: -22px; right: -20px; z-index: 1; padding: 11px 14px; color: var(--ink); background: var(--acid); font: 500 10px var(--mono); transform: rotate(5deg); }
+        .portrait { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(.75); border: 1px solid var(--ink); }
+        .portrait-caption { display: flex; justify-content: space-between; padding-top: 12px; font: 11px var(--mono); color: var(--muted); }
+        .ticker { overflow: hidden; color: var(--white); background: var(--ink); white-space: nowrap; }
+        .ticker-track { display: inline-flex; gap: 35px; padding: 17px 0; animation: drift 24s linear infinite; }
+        .ticker span { font: 500 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+        .ticker b { color: var(--acid); font-weight: 400; }
+        @keyframes drift { to { transform: translateX(-30%); } }
+        .section { padding: 110px 0; border-bottom: 1px solid var(--line); }
+        .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 30px; margin-bottom: 38px; }
+        h2 { margin: 0; font: 600 clamp(2.5rem, 5vw, 4.7rem)/.95 var(--display); letter-spacing: -.07em; }
+        .section-note { max-width: 280px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+        .stat { padding: 25px 18px 25px 0; border-right: 1px solid var(--line); }
+        .stat + .stat { padding-left: 18px; }
+        .stat:last-child { border: 0; }
+        .stat-number { font: 600 38px var(--display); letter-spacing: -.06em; }
+        .stat-label { display: block; margin-top: 8px; color: var(--muted); font: 11px var(--mono); text-transform: uppercase; }
+        .profile-strip { padding: 28px 0; border-bottom: 1px solid var(--line); }
+        .profile-strip .stats { margin-bottom: 24px; }
+        .github-note { display: flex; justify-content: space-between; gap: 25px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+        .github-note strong { color: var(--ink); font-weight: 700; }
+        .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .project { min-height: 310px; display: flex; flex-direction: column; justify-content: space-between; padding: 25px; background: var(--white); border: 1px solid var(--line); transition: transform .25s, border-color .25s; }
+        .project:hover { transform: translateY(-5px); border-color: var(--blue); }
+        .project:nth-child(3n) { background: var(--blue); color: var(--white); }
+        .project:nth-child(3n) .project-meta, .project:nth-child(3n) .project-description { color: rgba(255,255,255,.74); }
+        .project-meta { display: flex; justify-content: space-between; color: var(--blue); font: 11px var(--mono); text-transform: uppercase; }
+        .project h3 { margin: 44px 0 10px; font: 600 31px var(--display); letter-spacing: -.06em; }
+        .project-description { max-width: 390px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+        .project-foot { display: flex; justify-content: space-between; align-items: end; margin-top: 32px; }
+        .language { color: var(--ink); font: 11px var(--mono); }
+        .project:nth-child(3n) .language { color: var(--acid); }
+        .arrow { font-size: 24px; }
+        .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; }
+        .about-title { margin-top: 18px; font: 500 35px/1.1 var(--serif); letter-spacing: -.04em; }
+        .about-copy { max-width: 600px; color: var(--muted); font-size: 17px; line-height: 1.8; }
+        .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+        .skill { padding: 9px 11px; color: var(--blue-dark); background: #e4e6fa; font: 11px var(--mono); }
+        .gallery { display: grid; grid-template-columns: 1.35fr .65fr .65fr; gap: 12px; }
+        .gallery img { width: 100%; height: 310px; object-fit: cover; filter: grayscale(1); transition: filter .3s, transform .3s; }
+        .gallery img:hover { filter: grayscale(0); transform: scale(1.02); }
+        .gallery img:first-child { height: 490px; grid-row: span 2; }
+        .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; }
+        .contact h2 { max-width: 580px; }
+        .contact-list { border-top: 1px solid var(--ink); }
+        .contact-row { display: flex; justify-content: space-between; gap: 20px; padding: 17px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+        .contact-row span { color: var(--muted); font: 11px var(--mono); text-transform: uppercase; }
+        footer { display: flex; justify-content: space-between; padding: 25px 0 40px; color: var(--muted); font: 11px var(--mono); }
+        .loading { color: var(--muted); font: 12px var(--mono); }
+        @media (max-width: 760px) {
+            .wrap { width: min(100% - 32px, 590px); }
+            .nav { display: none; }
+            .hero { grid-template-columns: 1fr; min-height: auto; gap: 50px; padding: 65px 0 80px; }
+            h1 { font-size: clamp(4rem, 20vw, 7rem); }
+            .portrait-card { width: 78%; justify-self: end; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .github-note { display: block; }
+            .github-note .text-link { display: inline-block; margin-top: 13px; }
+            .stat:nth-child(2) { border-right: 0; }
+            .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+            .projects, .about-grid, .contact { grid-template-columns: 1fr; gap: 35px; }
+            .section { padding: 75px 0; }
+            .section-head { display: block; }
+            .section-note { margin-top: 20px; }
+            .gallery { grid-template-columns: 1fr 1fr; }
+            .gallery img:first-child { height: 350px; grid-column: span 2; grid-row: auto; }
+            .gallery img { height: 180px; }
+            footer { display: block; line-height: 2; }
         }
     </style>
 </head>
 <body>
+    <header class="wrap topbar">
+        <a class="mark" href="#top"><span class="mark-dot"></span> AHJ / 26</a>
+        <nav class="nav" aria-label="Primary navigation"><a href="#work">Selected work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+        <a class="text-link" href="https://github.com/ashraf-dev71" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </header>
 
-    <!-- PREVIOUS HACKER PRELOADER -->
-    <div id="preloader">
-        <div class="typewriter">> SYSTEM.BOOT_SEQUENCE_...</div>
-        <div class="typewriter" style="animation-delay: 1.5s;">> ACCESSING_ENCRYPTED_FILES...</div>
-        <div class="typewriter" style="animation-delay: 3s;">> MOUNTING_ASHRAF_PORTFOLIO...</div>
-        <div class="typewriter" style="animation-delay: 4.5s;">> PERMISSION_GRANTED.</div>
-    </div>
-
-    <!-- STATUS BAR -->
-    <div class="status-bar">
-        <div class="btn-ctrl" onclick="toggleAudio()" title="Quran Player">🎵</div>
-        <div class="btn-ctrl" onclick="toggleTheme()" title="Appearance">🌓</div>
-        <div class="btn-ctrl" onclick="togglePicker()" title="Accent Color">🎨
-            <div class="theme-panel" id="picker">
-                <div class="color-dot" style="background: #00ff41;" onclick="setAccent('#00ff41')"></div>
-                <div class="color-dot" style="background: #007aff;" onclick="setAccent('#007aff')"></div>
-                <div class="color-dot" style="background: #ff007a;" onclick="setAccent('#ff007a')"></div>
-                <div class="color-dot" style="background: #ffea00;" onclick="setAccent('#ffea00')"></div>
+    <main id="top">
+        <section class="wrap hero">
+            <div>
+                <p class="eyebrow">Developer / interface builder / Bangladesh</p>
+                <h1 id="hero-name">Ashraf<br>Hosen.</h1>
+                <p class="hero-copy">I make <strong>useful digital things</strong> with a sharp eye for interfaces, a curious mind, and just enough personality to keep the pixels awake.</p>
+                <div class="hero-links"><a class="button" href="#work">See selected work <span>↓</span></a><a class="text-link" href="mailto:jubayed45jh@gmail.com">Say hello ↗</a></div>
             </div>
-        </div>
-    </div>
-
-    <!-- DOCK NAV -->
-    <nav>
-        <a href="#home" class="nav-item">Home</a>
-        <a href="#gallery" class="nav-item">Visuals</a>
-        <a href="#about" class="nav-item">Core</a>
-        <a href="#contact" class="nav-item">Uplink</a>
-    </nav>
-
-    <main id="home">
-        <!-- HERO -->
-        <section class="hero">
-            <div class="profile-wrapper">
-                <img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/main/IMG_20260209_205036_522.jpg" alt="Profile" class="profile-img">
-                <div class="arabic-greet" id="greet">السلام عليكم</div>
+            <figure class="portrait-card"><img class="portrait" id="avatar" src="https://avatars.githubusercontent.com/u/221861280?v=4" alt="Ashraf Hosen Jubaed"><figcaption class="portrait-caption"><span>Dhaka division, BD</span><span id="joined">EST. 2025</span></figcaption></figure>
+        </section>
+        <div class="ticker"><div class="ticker-track"><span>Build with intent <b>✳</b></span><span>Make it clear <b>✳</b></span><span>Ship the useful part <b>✳</b></span><span>Build with intent <b>✳</b></span><span>Make it clear <b>✳</b></span><span>Ship the useful part <b>✳</b></span></div></div>
+        <section class="wrap profile-strip" aria-label="GitHub profile statistics">
+            <div class="stats">
+                <div class="stat"><span class="stat-number" id="repo-count">06</span><span class="stat-label">Public repositories</span></div>
+                <div class="stat"><span class="stat-number" id="follower-count">00</span><span class="stat-label">Followers</span></div>
+                <div class="stat"><span class="stat-number" id="following-count">00</span><span class="stat-label">Following</span></div>
+                <div class="stat"><span class="stat-number" id="star-count">00</span><span class="stat-label">Stars received</span></div>
             </div>
-            <h1 data-reveal>Ashraf Hossen</h1>
-            <p class="subtitle" data-reveal>Senior Developer & UI Architect</p>
+            <div class="github-note"><span id="profile-bio"><strong>Currently building:</strong> thoughtful web tools and interfaces from Bangladesh.</span><a class="text-link" href="https://github.com/ashraf-dev71" target="_blank" rel="noreferrer">View full GitHub profile ↗</a></div>
         </section>
 
-        <!-- GALLERY -->
-        <section id="gallery" class="gallery-container" data-reveal>
-            <div class="slider-track" id="slider">
-                <div class="slide"><img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/refs/heads/main/FB_IMG_1770646304688.jpg" alt="1"></div>
-                <div class="slide"><img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/main/IMG-20260209-WA0005.jpg" alt="2"></div>
-                <div class="slide"><img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/main/IMG_20260209_205036_522.jpg" alt="3"></div>
-                <div class="slide"><img src="https://raw.githubusercontent.com/ashraf-dev71/ashraf-dev71.github.io/main/FB_IMG_1770799211354.jpg" alt="4"></div>
-            </div>
+        <section class="wrap section" id="work">
+            <div class="section-head"><h2>Recent work</h2><p class="section-note">A live selection pulled from my public GitHub repositories. Built, broken, learned from, and still moving.</p></div>
+            <div class="projects" id="projects"><p class="loading">Loading repository notes...</p></div>
         </section>
 
-        <!-- ABOUT (TERMINAL) -->
-        <section id="about" style="padding: 0 20px;">
-            <div class="terminal" data-reveal>
-                <div class="term-header">
-                    <span>ASHRAF@SYSTEM: ~ (zsh)</span>
-                </div>
-                <div class="term-body" id="json-about"></div>
-            </div>
+        <section class="wrap section" id="about">
+            <div class="section-head"><h2>A little context</h2><p class="section-note">The person behind the commits, according to the internet and a little honest editing.</p></div>
+            <div class="about-grid"><div><p class="eyebrow">01 / The short version</p><p class="about-title">Curious by default.<br>Useful on purpose.</p></div><div><p class="about-copy">I am Ashraf Hosen Jubaed, a developer from Bangladesh currently studying at Uttara High School and College. My work lives where clean interfaces, small tools, and practical systems meet. I enjoy taking an idea from “this could be useful” to something you can actually open and use.</p><div class="skills"><span class="skill">JavaScript</span><span class="skill">TypeScript</span><span class="skill">UI design</span><span class="skill">Web tools</span><span class="skill">Problem solving</span></div></div></div>
         </section>
 
-        <!-- CONTACT -->
-        <section id="contact" class="contact-section" data-reveal></section>
+        <section class="wrap section"><div class="section-head"><h2>Off the screen</h2><p class="section-note">A few frames from the person, place, and process behind the work.</p></div><div class="gallery"><img src="FB_IMG_1770646304688.jpg" alt="Ashraf, portrait one"><img src="IMG-20260209-WA0005.jpg" alt="Ashraf, portrait two"><img src="FB_IMG_1770799211354.jpg" alt="Ashraf, portrait three"></div></section>
+
+        <section class="wrap section contact" id="contact"><div><p class="eyebrow">Let’s make something</p><h2>Have a good idea?<br>Bring it over.</h2></div><div class="contact-list"><a class="contact-row" href="mailto:jubayed45jh@gmail.com"><span>Email</span><strong>jubayed45jh@gmail.com ↗</strong></a><a class="contact-row" href="https://t.me/Ashrafhossenjubayed71" target="_blank" rel="noreferrer"><span>Telegram</span><strong>@Ashrafhossenjubayed71 ↗</strong></a><a class="contact-row" href="https://facebook.com/Ashrafhossenjubayed72" target="_blank" rel="noreferrer"><span>Facebook</span><strong>Ashrafhossenjubayed72 ↗</strong></a></div></section>
     </main>
-
-    <audio id="quran" src="https://github.com/jubairbro/Faw/raw/refs/heads/main/audio.mp3"></audio>
-
-    <footer>
-        <p>// ASHRAF_HOSSEN_JUBAYED // VERSION_2025.01 //</p>
-        <p>ENCRYPTED & DESIGNED FOR EXCELLENCE</p>
-    </footer>
+    <footer class="wrap"><span>© 2026 Ashraf Hosen Jubaed</span><span>Made with curiosity + code</span></footer>
 
     <script>
-        /* --- 1. PRELOADER SEQUENCE --- */
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('preloader').style.display = 'none';
-                    document.getElementById('greet').style.opacity = '1';
-                    document.getElementById('greet').style.transform = 'scale(1)';
-                }, 800);
-            }, 6000); // Wait for hacker typing to finish
-        });
-
-        /* --- 2. CONTROLS --- */
-        function toggleTheme() {
-            const b = document.body;
-            b.setAttribute('data-theme', b.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        const profileUrl = 'https://api.github.com/users/ashraf-dev71';
+        const reposUrl = 'https://api.github.com/users/ashraf-dev71/repos?sort=updated&per_page=6';
+        const fallbackRepos = [{ name: 'chack-host', description: 'Client-side network intelligence dashboard for IP, DNS, host, geolocation, ASN, security, and Cloudflare edge diagnostics.', language: 'TypeScript', html_url: 'https://github.com/ashraf-dev71/chack-host', stargazers_count: 0 }, { name: 'ashraf-dev71.github.io', description: 'A personal corner of the web for experiments, notes, and new work.', language: 'HTML', html_url: 'https://github.com/ashraf-dev71/ashraf-dev71.github.io', stargazers_count: 0 }];
+        const esc = (value) => String(value || '').replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
+        function renderRepos(repos) {
+            document.getElementById('star-count').textContent = String(repos.reduce((total, repo) => total + (repo.stargazers_count || 0), 0)).padStart(2, '0');
+            document.getElementById('projects').innerHTML = repos.slice(0, 6).map((repo, index) => `<a class="project" href="${esc(repo.html_url)}" target="_blank" rel="noreferrer"><div><div class="project-meta"><span>0${index + 1} / repository</span><span>★ ${repo.stargazers_count || 0} · ⑂ ${repo.forks_count || 0}</span></div><h3>${esc(repo.name.replace(/[-_]/g, ' '))}</h3><p class="project-description">${esc(repo.description || 'An open-source experiment from the workshop.')}</p></div><div class="project-foot"><span class="language">${esc(repo.language || 'Open source')}</span><span class="arrow">↗</span></div></a>`).join('');
         }
-
-        function togglePicker() {
-            const p = document.getElementById('picker');
-            p.style.display = p.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function setAccent(color) {
-            document.documentElement.style.setProperty('--primary', color);
-            togglePicker();
-        }
-
-        function toggleAudio() {
-            const a = document.getElementById('quran');
-            a.paused ? a.play() : a.pause();
-        }
-
-        /* --- 3. AUTO SLIDER --- */
-        let idx = 0;
-        setInterval(() => {
-            idx = (idx + 1) % 4;
-            document.getElementById('slider').style.transform = `translateX(-${idx * 100}%)`;
-        }, 2000);
-
-        /* --- 4. DATA RENDER --- */
-        const me = {
-            id: "Ashraf Hossen Jubayed",
-            role: "Leader of Noobs",
-            status: "404: Potential Not Found",
-            stack: ["JavaScript", "UI Design", "System Architecture"],
-            vision: "Clean code. Dynamic aesthetics."
-        };
-
-        const contacts = [
-            { id: "Facebook", val: "Ashrafhossenjubayed72", url: "https://facebook.com/Ashrafhossenjubayed72" },
-            { id: "Telegram", val: "@Ashrafhossenjubayed71", url: "https://t.me/Ashrafhossenjubayed71" },
-            { id: "Email", val: "jubayed45jh@gmail.com", url: "mailto:jubayed45jh@gmail.com" }
-        ];
-
-        document.getElementById('json-about').innerHTML = `
-            <span class="key">const</span> <span style="color:#61afef">ashraf</span> = {<br>
-            &nbsp;&nbsp;fullName: <span style="color:#98c379">"${me.id}"</span>,<br>
-            &nbsp;&nbsp;rank: <span style="color:#98c379">"${me.role}"</span>,<br>
-            &nbsp;&nbsp;status: <span style="color:#98c379">"${me.status}"</span>,<br>
-            &nbsp;&nbsp;skills: [<span style="color:#98c379">"${me.stack.join('", "')}"</span>],<br>
-            &nbsp;&nbsp;motto: <span style="color:#98c379">"${me.vision}"</span><br>
-            };
-        `;
-
-        const contactGrid = document.getElementById('contact');
-        contacts.forEach(c => {
-            contactGrid.innerHTML += `
-                <a href="${c.url}" class="contact-card" target="_blank">
-                    <div style="font-size:11px; opacity:0.5; margin-bottom:10px; font-family:var(--font-mono)">UPLINK_${c.id.toUpperCase()}</div>
-                    <div style="font-weight:700; font-size:1.3rem;">${c.val}</div>
-                </a>
-            `;
-        });
-
-        /* --- 5. REVEAL ENGINE --- */
-        const obs = new IntersectionObserver((es) => {
-            es.forEach(e => { if(e.isIntersecting) e.target.classList.add('revealed'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+        Promise.all([fetch(profileUrl).then((response) => response.ok ? response.json() : null), fetch(reposUrl).then((response) => response.ok ? response.json() : null)]).then(([profile, repos]) => {
+            if (profile) { document.getElementById('hero-name').innerHTML = `${esc((profile.name || 'Ashraf Hosen').split(' ')[0])}<br>${esc((profile.name || 'Hosen.').split(' ').slice(1).join(' ') || 'Hosen')}.`; if (profile.avatar_url) document.getElementById('avatar').src = profile.avatar_url; if (profile.created_at) document.getElementById('joined').textContent = `EST. ${new Date(profile.created_at).getFullYear()}`; document.getElementById('repo-count').textContent = String(profile.public_repos || 0).padStart(2, '0'); document.getElementById('follower-count').textContent = String(profile.followers || 0).padStart(2, '0'); document.getElementById('following-count').textContent = String(profile.following || 0).padStart(2, '0'); if (profile.bio) document.getElementById('profile-bio').innerHTML = `<strong>GitHub says:</strong> ${esc(profile.bio).replace(/\r?\n/g, ' ')}`; }
+            renderRepos(Array.isArray(repos) && repos.length ? repos : fallbackRepos);
+        }).catch(() => renderRepos(fallbackRepos));
     </script>
 </body>
 </html>
